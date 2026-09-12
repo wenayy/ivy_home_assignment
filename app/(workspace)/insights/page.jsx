@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AlertTriangle, BarChart3, Building2, CircleCheck, CopyMinus, IndianRupee, Ruler, ShieldAlert } from "lucide-react";
+import { AlertTriangle, ArrowUpRight, BarChart3, Building2, CircleCheck, CopyMinus, IndianRupee, Ruler, ShieldAlert } from "lucide-react";
 import { apiJson } from "../../../lib/client-api";
 import { formatInr, formatNumber, titleCase } from "../../../lib/format";
 
@@ -17,7 +17,7 @@ export default function InsightsPage() {
 
   return (
     <div className="page-wrap insights-page">
-      <header className="page-header"><div><p className="eyebrow">Market pulse</p><h1>Bangalore insights</h1><p>Trusted active inventory powers market figures; the audit trail stays visible beside it.</p></div><span className="reference-chip">Fixed review · 10 Sep 2026 IST</span></header>
+      <header className="page-header"><div><p className="eyebrow">Market pulse</p><h1>Bangalore insights</h1><p>Trusted active inventory powers market figures; the audit trail stays visible beside it. Fixed analytical reference: 10 Sep 2026 IST.</p></div><a className="approach-link" href="https://app.notion.com/p/Ivy-home-assignment-Vinay-Joshi-3d8e8c1de17f80e98737dbedc03f8df2" target="_blank" rel="noreferrer">See my approach<ArrowUpRight size={17} /></a></header>
       <section className="metric-grid">
         <div><span className="metric-icon"><Building2 /></span><p>Retrievable records</p><strong>{formatNumber(data.total_listings)}</strong><small>{formatNumber(data.unique_properties)} distinct properties</small></div>
         <div><span className="metric-icon"><CircleCheck /></span><p>Trusted active homes</p><strong>{formatNumber(data.trusted_active_listings)}</strong><small>after quality screening</small></div>
