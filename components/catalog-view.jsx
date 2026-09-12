@@ -40,6 +40,16 @@ export default function CatalogView({ resource }) {
 
   useEffect(() => { load(); }, [load]);
 
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setPage(1);
+      setFilters((current) => current.search === draft.search
+        ? current
+        : { ...current, search: draft.search });
+    }, 300);
+    return () => window.clearTimeout(timer);
+  }, [draft.search]);
+
   function apply(event) {
     event?.preventDefault();
     setPage(1);
