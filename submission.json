@@ -3,8 +3,8 @@
   "candidate": {
     "name": "Vinay Joshi",
     "email": "vinay.20232058@mnnit.ac.in",
-    "repo_url": "",
-    "demo_url": ""
+    "repo_url": "https://github.com/wenayy/ivy_home_assignment",
+    "demo_url": "https://ivyhomeassignment.vercel.app/login"
   },
   "answers": {
     "total_listing_records": 4700,
@@ -257,7 +257,7 @@
       "actual": "the service rejects query-key authentication and requires X-API-Key",
       "how_found": "called login once with the documented query parameter and read the 401 error",
       "impact": "every documented request fails until the header is corrected",
-      "evidence": [attached notion link inside app ]
+      "evidence": ["https://app.notion.com/p/Ivy-home-assignment-Vinay-Joshi-3d8e8c1de17f80e98737dbedc03f8df2"]
     },
     {
       "endpoint": "/auth/login",
@@ -266,7 +266,7 @@
       "actual": "returns access_token plus refresh_token, advertises /auth/refresh, and the access token lasts 900 seconds",
       "how_found": "logged in and inspected both the response fields and expires_in",
       "impact": "a frontend that follows the reference stops working after 15 minutes",
-      "evidence": []
+      "evidence": ["https://app.notion.com/p/Ivy-home-assignment-Vinay-Joshi-3d8e8c1de17f80e98737dbedc03f8df2"]
     },
     {
       "endpoint": "/auth/refresh",
@@ -275,7 +275,7 @@
       "actual": "POST accepts refresh_token and rotates both tokens",
       "how_found": "followed refresh_url from the real login response and exercised it",
       "impact": "this is the supported way to keep a session working beyond 15 minutes",
-      "evidence": []
+      "evidence": ["https://app.notion.com/p/Ivy-home-assignment-Vinay-Joshi-3d8e8c1de17f80e98737dbedc03f8df2"]
     },
     {
       "endpoint": "/auth/logout",
@@ -284,7 +284,7 @@
       "actual": "tokens are stateless; the response instructs the client to discard them",
       "how_found": "called logout and read its success note",
       "impact": "logout is a client-side token deletion, not server-side revocation",
-      "evidence": []
+      "evidence": ["https://app.notion.com/p/Ivy-home-assignment-Vinay-Joshi-3d8e8c1de17f80e98737dbedc03f8df2"]
     },
     {
       "endpoint": "*",
