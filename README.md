@@ -5,7 +5,7 @@ Ivy Lens is a production-style Bangalore property browser built for the Ivy Home
 
 ## Run locally
 
-1. Copy `.env.example` to `.env.local` and set the challenge API key.
+1. Copy `.env.example` to `.env.local` and set the challenge API and Cloudflare Turnstile keys.
 2. Install packages with `npm install`.
 3. Start the app with `npm run dev`.
 4. Open `http://localhost:3000` and sign in with one of the provided demo accounts.

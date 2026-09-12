@@ -14,10 +14,13 @@ export function SessionProvider({ children }) {
 
   const value = useMemo(() => ({
     session,
-    async login(email, password) {
+    async login(email, password, turnstileToken) {
       const response = await fetch("/api/ivy/auth/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "X-Turnstile-Token": turnstileToken,
+        },
         body: JSON.stringify({ email, password }),
       });
       const body = await response.json().catch(() => null);
@@ -50,4 +53,3 @@ export function useSession() {
   if (!context) throw new Error("useSession must be used inside SessionProvider");
   return context;
 }
-

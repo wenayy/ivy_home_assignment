@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight, ArrowUpRight, Database, KeyRound, Mail, MapPin, ShieldCheck } from "lucide-react";
 import { SessionProvider, useSession } from "../../components/session-context";
-import { Turnstile } from "@marsidev/react-turnstile"
+import { Turnstile } from "@marsidev/react-turnstile";
 
 function LoginForm() {
   const { session, login } = useSession();
@@ -14,27 +14,29 @@ function LoginForm() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [captchaToken, setCaptchaToken] = useState(null);
+  const turnstileRef = useRef(null);
 
   useEffect(() => {
     if (session) router.replace("/listings");
   }, [router, session]);
 
   async function submit(event) {
-  event.preventDefault();
-  setError("");
-  if (!captchaToken) { setError("Please complete the verification."); return; }
-  setLoading(true);
-  try {
-    const check = await fetch("/api/verify-turnstile", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token: captchaToken }),
-    });
-    if (!check.ok) { setError("Verification failed. Try again."); setLoading(false); return; }
-    await login(email, password);
-  } catch (nextError) { setError(nextError.message); setLoading(false); }
-}
-
+    event.preventDefault();
+    setError("");
+    if (!captchaToken) {
+      setError("Please complete the security verification.");
+      return;
+    }
+    setLoading(true);
+    try {
+      await login(email, password, captchaToken);
+    } catch (nextError) {
+      setError(nextError.message);
+      setCaptchaToken(null);
+      turnstileRef.current?.reset();
+      setLoading(false);
+    }
+  }
 
   return (
     <main className="grid min-h-screen bg-paper lg:grid-cols-[1.08fr_.92fr]">
@@ -60,8 +62,20 @@ function LoginForm() {
           <div><p className="m-0 text-[.74rem] font-bold tracking-[.13em] text-forest-light uppercase">Reviewer access</p><h2 className="mt-1.5 font-serif text-3xl leading-tight font-medium tracking-[-.035em]">Explore the corrected property desk</h2><p className="mt-2.5 text-[.82rem] leading-relaxed text-ink-soft">Use a provided demo account to test listings, rentals, projects, saves, and the audit-backed insights.</p></div>
           <label className="text-[.8rem] font-bold text-ink-soft">Email<input className="mt-1.5 min-h-12 w-full rounded-[9px] border border-[#d3d7d1] px-3 text-ink outline-none focus:border-forest-light focus:ring-3 focus:ring-forest-light/10" value={email} onChange={(event) => setEmail(event.target.value)} type="email" autoComplete="username" required /></label>
           <label className="text-[.8rem] font-bold text-ink-soft">Password<input className="mt-1.5 min-h-12 w-full rounded-[9px] border border-[#d3d7d1] px-3 text-ink outline-none focus:border-forest-light focus:ring-3 focus:ring-forest-light/10" value={password} onChange={(event) => setPassword(event.target.value)} type="password" autoComplete="current-password" placeholder="Enter the shared demo password" required /></label>
-          {error && <div className="rounded-lg bg-[#f8e7e3] px-3 py-2.5 text-[.82rem] text-[#8f382e]" role="alert">{error}</div>}
-          <button className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-[10px] bg-forest px-4 font-bold text-white hover:bg-[#205243]" disabled={loading || !captchaToken}>{loading ? "Signing in…" : <>Sign in <ArrowRight size={18} /></>}</button>
+          <div className="min-h-16.5 overflow-hidden rounded-lg" aria-label="Security verification">
+            <Turnstile
+              ref={turnstileRef}
+              siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+              className="w-full"
+              options={{ action: "login", theme: "light", size: "flexible", refreshExpired: "auto" }}
+              onSuccess={(token) => { setCaptchaToken(token); setError(""); }}
+              onExpire={() => setCaptchaToken(null)}
+              onError={() => { setCaptchaToken(null); setError("Security verification could not load. Please try again."); }}
+              onUnsupported={() => { setCaptchaToken(null); setError("This browser cannot complete the security verification."); }}
+            />
+          </div>
+          {error && <div className="rounded-lg bg-[#f8e7e3] px-3 py-2.5 text-[.82rem] text-[#8f382e]" role="alert" aria-live="polite">{error}</div>}
+          <button className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-[10px] bg-forest px-4 font-bold text-white hover:bg-[#205243] disabled:bg-forest/65" disabled={loading}>{loading ? "Signing in…" : <>Sign in <ArrowRight size={18} /></>}</button>
           <p className="-mt-2 flex items-center justify-center gap-1 text-center text-[.76rem] text-[#7b8882]"><KeyRound size={14} /> Use demo1, demo2 or demo3 @ivy.homes.</p>
         </form>
       </section>
