@@ -2,6 +2,8 @@
 
 Ivy Lens is a production-style Bangalore property browser built for the Ivy Homes internship challenge. It uses the live challenge API, repairs the API/data inconsistencies found during the audit, and exposes searchable sale listings, rentals, projects, saved homes, listing details, and market insights.
 
+The interface is built with Tailwind CSS 4 utilities, with a small global stylesheet reserved for the theme tokens, decorative background patterns, and loading animation.
+
 ## Run locally
 
 1. Copy `.env.example` to `.env.local` and set the challenge API key.
@@ -65,4 +67,3 @@ These checks are reproducible with `scripts/probe-api.mjs`; its result is delibe
 ## Use of AI tools
 
 I used an OpenAI Codex coding agent to accelerate endpoint probing, data exploration, implementation, browser testing, and documentation. I reviewed the generated code and claims, reran the analysis from the downloaded snapshots, reproduced the contract probes against the live API, and kept the final rules explicit in the repository. The agent was a tool for executing and checking hypotheses; the submitted reasoning and responsibility for it remain mine.
-

@@ -34,9 +34,11 @@ export default function SaveButton({ listingId, initialSaved = false, onChange, 
   }
 
   return (
-    <span className="save-wrap">
+    <span className="inline-flex flex-col items-start">
       <button
-        className={`${compact ? "save-icon" : "save-button"} ${saved ? "saved" : ""}`}
+        className={compact
+          ? `absolute top-3 right-3 z-2 grid size-9 place-items-center rounded-full border-0 shadow-[0_5px_16px_rgba(20,37,31,.12)] ${saved ? "bg-forest text-white" : "bg-white/90 text-forest"}`
+          : `flex min-h-10.5 items-center gap-2 rounded-[9px] border px-4 font-bold ${saved ? "border-forest bg-forest text-white" : "border-[#c7cec8] bg-white text-forest"}`}
         onClick={toggle}
         disabled={busy}
         aria-pressed={saved}
@@ -46,8 +48,7 @@ export default function SaveButton({ listingId, initialSaved = false, onChange, 
         <Heart size={compact ? 18 : 19} fill={saved ? "currentColor" : "none"} />
         {!compact && (saved ? "Saved" : "Save")}
       </button>
-      {message && !compact && <small className="save-error">{message}</small>}
+      {message && !compact && <small className="mt-1 text-danger">{message}</small>}
     </span>
   );
 }
-
