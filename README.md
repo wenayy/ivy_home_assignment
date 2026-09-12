@@ -38,3 +38,36 @@ node scripts/analyze-data.mjs
 
 Candidate email, public repository URL, and deployed demo URL remain explicit placeholders in `submission.json` until those user-owned values exist.
 
+## How I decided what to distrust
+
+I treated the reference as a list of testable claims. I first exercised every documented route and inspected authentication, response shapes, errors, pagination metadata, filters, and sorting. I then downloaded every retrievable record and tested source-by-source distributions, physical invariants, cross-source identity matches, phone reuse, timestamps, and agreement between project and listing data.
+
+The first matching rule was never accepted just because it explained most rows. For example, project prices cannot be normalized with one unit per project: a minimum and maximum can use different units. Duplicate detection also cannot rely on a shared phone number or apartment name; it needs stable physical attributes, nearby coordinates, and normalized areas. The detailed hypotheses, counterexamples, thresholds, and exact calculations are in `AUDIT_AND_REASONING.md`.
+
+The product responds to each reproduced problem rather than merely documenting it: the API key is server-side, access tokens refresh, pagination follows `has_more`, ignored filters run locally, replacement detail/save paths are used, units are normalized before calculations, and suspicious or impossible inventory is screened from the default view.
+
+## What I checked that was fine
+
+Negative results were kept because they constrained the eventual explanation:
+
+- The documented `locality`, `bhk`, and `property_type` filters do work for sale listings. The undocumented `bedroom` alias does not, but the documented `bhk` parameter is fine.
+- Rental `locality`, `bhk`, and `furnishing` filters work.
+- Project `locality` and `project_status` filters work.
+- Sale price sorting works in both directions, despite price-range filtering being ignored.
+- Rental price sorting and project maximum-price sorting work on the raw values returned by their endpoints.
+- `GET /v1/rentals/{id}` and `GET /v1/projects/{id}` exist at the documented paths.
+- The service's `limit`, `offset`, `count`, and `has_more` fields accurately describe each returned page. The false part is the documentation's page-based contract and the reliability of `total` as a stopping condition.
+- The error bodies tested were useful JSON objects with a `detail` field, as promised.
+- Structured locality values were internally consistent enough to use for the Electronic City rent calculation; the widespread rental problem is in the supplied title text.
+
+These checks are reproducible with `scripts/probe-api.mjs`; its result is deliberately not padded into `findings`, because Part 3 asks only for discrepancies and penalizes guesses.
+
+## Use of AI tools
+
+I used an OpenAI Codex coding agent to accelerate endpoint probing, data exploration, implementation, browser testing, and documentation. I reviewed the generated code and claims, reran the analysis from the downloaded snapshots, reproduced the contract probes against the live API, and kept the final rules explicit in the repository. The agent was a tool for executing and checking hypotheses; the submitted reasoning and responsibility for it remain mine.
+
+## With another two days
+
+I would spend the first day on independent verification rather than additional surface area: write automated regression tests for every normalization and corruption boundary, save immutable probe outputs with secrets removed, manually inspect random true/false examples from every classifier, and have a second reviewer challenge the 335 duplicate pairs and seven fraud clusters. I would also run a full keyboard/screen-reader pass and test token refresh with an accelerated expiry.
+
+On the second day I would add property/rental/project detail parity, locally computed comparable homes to replace the missing endpoint, clearer audit explanations per flagged record, and monitoring for upstream schema drift. I would then deploy a production preview, smoke-test it from a clean browser and mobile network, verify secrets are absent from the client bundle and Git history, and submit only after the public repository, live URL, and candidate fields agree everywhere.
