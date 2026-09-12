@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowRight, CheckCircle2, KeyRound, ShieldCheck } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Database, KeyRound, MapPin, ShieldCheck, UserRoundSearch } from "lucide-react";
 import { SessionProvider, useSession } from "../../components/session-context";
 
 function LoginForm() {
@@ -28,26 +28,30 @@ function LoginForm() {
   return (
     <main className="login-page">
       <section className="login-story">
-        <div className="login-brand"><span className="brand-mark">IL</span><strong>Ivy Lens</strong></div>
+        <div className="login-brand"><span className="brand-mark">IL</span><span><strong>Ivy Lens</strong><small>An Ivy Homes engineering assignment by Vinay Joshi</small></span></div>
         <div className="story-copy">
-          <p className="eyebrow">Bangalore, read clearly</p>
-          <h1>Property search with the fine print already checked.</h1>
-          <p>Browse homes, rentals and projects through corrected prices, areas and availability.</p>
+          <p className="eyebrow">Ivy Homes assignment · Bangalore</p>
+          <h1>A property browser that checks the data before you trust it.</h1>
+          <p>Built by Vinay Joshi after auditing the complete challenge API: corrected units, reliable filters, persistent saves, and insights grounded in all retrievable records.</p>
+          <div className="creator-actions">
+            <a href="https://app.notion.com/p/Ivy-home-assignment-Vinay-Joshi-3d8e8c1de17f80e98737dbedc03f8df2" target="_blank" rel="noreferrer" className="story-button primary-story-button">See my approach<ArrowUpRight size={17} /></a>
+            <a href="https://www.linkedin.com/in/vinay-joshi-347852296/" target="_blank" rel="noreferrer" className="story-button secondary-story-button"><UserRoundSearch size={17} />Hire Vinay</a>
+          </div>
         </div>
         <div className="trust-list">
-          <span><CheckCircle2 size={18} /> Corrected area and price units</span>
-          <span><ShieldCheck size={18} /> Suspicious inventory screened out</span>
-          <span><KeyRound size={18} /> Saved homes stay with your account</span>
+          <span><Database size={18} /><strong>4,700</strong> sale records reconciled</span>
+          <span><ShieldCheck size={18} /><strong>25</strong> documented findings</span>
+          <span><MapPin size={18} />Electronic City assignment</span>
         </div>
       </section>
       <section className="login-panel">
         <form className="login-card" onSubmit={submit}>
-          <div><p className="eyebrow">Welcome back</p><h2>Sign in to your property desk</h2></div>
+          <div><p className="eyebrow">Reviewer access</p><h2>Explore the corrected property desk</h2><p className="login-intro">Use a provided demo account to test listings, rentals, projects, saves, and the audit-backed insights.</p></div>
           <label>Email<input value={email} onChange={(event) => setEmail(event.target.value)} type="email" autoComplete="username" required /></label>
           <label>Password<input value={password} onChange={(event) => setPassword(event.target.value)} type="password" autoComplete="current-password" placeholder="Enter the shared demo password" required /></label>
           {error && <div className="form-error" role="alert">{error}</div>}
           <button className="primary-button" disabled={loading}>{loading ? "Signing in…" : <>Sign in <ArrowRight size={18} /></>}</button>
-          <p className="form-note">Use demo1, demo2 or demo3 @ivy.homes.</p>
+          <p className="form-note"><KeyRound size={14} /> Use demo1, demo2 or demo3 @ivy.homes.</p>
         </form>
       </section>
     </main>

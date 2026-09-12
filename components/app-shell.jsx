@@ -10,6 +10,8 @@ import {
   Home,
   KeyRound,
   LogOut,
+  Sparkles,
+  ArrowUpRight,
 } from "lucide-react";
 import { SessionProvider, useSession } from "./session-context";
 
@@ -47,6 +49,7 @@ function Shell({ children }) {
             return <Link key={href} href={href} className={active ? "active" : ""}><Icon size={19} strokeWidth={1.8} />{label}</Link>;
           })}
         </nav>
+        <a className="sidebar-hire" href="https://www.linkedin.com/in/vinay-joshi-347852296/" target="_blank" rel="noreferrer"><Sparkles size={16} />Hire Vinay<ArrowUpRight size={15} /></a>
         <div className="side-profile">
           <div className="avatar">{session.user?.email?.slice(4, 5) || "D"}</div>
           <div><strong>{session.user?.email?.split("@")[0]}</strong><small>Demo account</small></div>
@@ -67,4 +70,3 @@ function Shell({ children }) {
 export default function AppShell({ children }) {
   return <SessionProvider><Shell>{children}</Shell></SessionProvider>;
 }
-
