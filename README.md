@@ -66,8 +66,3 @@ These checks are reproducible with `scripts/probe-api.mjs`; its result is delibe
 
 I used an OpenAI Codex coding agent to accelerate endpoint probing, data exploration, implementation, browser testing, and documentation. I reviewed the generated code and claims, reran the analysis from the downloaded snapshots, reproduced the contract probes against the live API, and kept the final rules explicit in the repository. The agent was a tool for executing and checking hypotheses; the submitted reasoning and responsibility for it remain mine.
 
-## With another two days
-
-I would spend the first day on independent verification rather than additional surface area: write automated regression tests for every normalization and corruption boundary, save immutable probe outputs with secrets removed, manually inspect random true/false examples from every classifier, and have a second reviewer challenge the 335 duplicate pairs and seven fraud clusters. I would also run a full keyboard/screen-reader pass and test token refresh with an accelerated expiry.
-
-On the second day I would add property/rental/project detail parity, locally computed comparable homes to replace the missing endpoint, clearer audit explanations per flagged record, and monitoring for upstream schema drift. I would then deploy a production preview, smoke-test it from a clean browser and mobile network, verify secrets are absent from the client bundle and Git history, and submit only after the public repository, live URL, and candidate fields agree everywhere.

@@ -2,9 +2,9 @@
   "api_key": "IVY26-73F018CB6CBC",
   "candidate": {
     "name": "Vinay Joshi",
-    "email": "TODO_REGISTERED_EMAIL",
-    "repo_url": "TODO_REPO_URL",
-    "demo_url": "TODO_DEMO_URL"
+    "email": "vinay.20232058@mnnit.ac.in",
+    "repo_url": "",
+    "demo_url": ""
   },
   "answers": {
     "total_listing_records": 4700,
@@ -257,7 +257,7 @@
       "actual": "the service rejects query-key authentication and requires X-API-Key",
       "how_found": "called login once with the documented query parameter and read the 401 error",
       "impact": "every documented request fails until the header is corrected",
-      "evidence": []
+      "evidence": [attached notion link inside app ]
     },
     {
       "endpoint": "/auth/login",
