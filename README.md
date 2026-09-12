@@ -2,7 +2,6 @@
 
 Ivy Lens is a production-style Bangalore property browser built for the Ivy Homes internship challenge. It uses the live challenge API, repairs the API/data inconsistencies found during the audit, and exposes searchable sale listings, rentals, projects, saved homes, listing details, and market insights.
 
-The interface is built with Tailwind CSS 4 utilities, with a small global stylesheet reserved for the theme tokens, decorative background patterns, and loading animation.
 
 ## Run locally
 

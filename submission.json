@@ -287,7 +287,7 @@
       "evidence": ["https://app.notion.com/p/Ivy-home-assignment-Vinay-Joshi-3d8e8c1de17f80e98737dbedc03f8df2"]
     },
     {
-      "endpoint": "*",
+      "endpoint": "/v1/listings/{id}",
       "category": "pagination",
       "documented": "collections use 1-indexed page, default limit 20, maximum 200, and return total/page/page_size/results",
       "actual": "page is ignored; offset is accepted; limit is capped at 50; responses use limit/offset/count/total/has_more/results",
