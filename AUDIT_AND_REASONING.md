@@ -208,5 +208,5 @@ App checks in a real browser:
 
 The service has no working similar-listings endpoint, so that feature is omitted rather than faked. Rentals and projects have catalog cards but no documented reliable detail endpoint was assumed. The challenge data is cached for five minutes per running server process; restarting or waiting refreshes it.
 
-`submission.json` still contains placeholders for the candidate's registered email, the public repository URL, and the deployed demo URL. Those cannot be inferred safely. Publishing a repository, deploying with secrets, and finally submitting the application form are external actions; the code and evidence are ready once the user-owned destination details are supplied or authorized.
-
+## 10. Confusion
+Also like islive has to be true and is verified also has to be true to like yk be a active listings right both needs to be true like that. so i just took like is_live has to be true for the active listings but i just added it even if it is not verified in the data
